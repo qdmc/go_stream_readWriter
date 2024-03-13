@@ -30,7 +30,12 @@ type defaultBits struct {
 func (b *defaultBits) ParseByte(u uint8) {
 	byteStr := fmt.Sprintf("%08b", u)
 	for index, val := range byteStr {
-		b.bits[index] = int(val)
+		if val == 49 {
+			b.bits[index] = 1
+		} else {
+			b.bits[index] = 0
+		}
+
 	}
 }
 
@@ -64,14 +69,5 @@ func (b *defaultBits) ToByte() uint8 {
 
 func (b *defaultBits) ToString() string {
 	return fmt.Sprintf(
-		"%d%d%d%d%d%d%d%d",
-		b.bits[0],
-		b.bits[1],
-		b.bits[2],
-		b.bits[3],
-		b.bits[4],
-		b.bits[5],
-		b.bits[6],
-		b.bits[7],
-	)
+		"%08b", b.ToByte())
 }
